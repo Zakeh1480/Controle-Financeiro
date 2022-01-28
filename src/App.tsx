@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import * as c from './App.style';
+import * as C from './App.style';
 import { Categoria } from './types/Categoria';
 import { Item } from './types/Item';
 import { categorias } from './data/categorias';
 import { itens } from './data/itens';
 import { getCurrentMonth, filterListByMonth } from './helpers/dateFilter';
 import { TableArea } from './components/TableArea';
+import { InfoArea } from './components/InfoArea';
 
-function App() {
+const App = () => {
 
   const [list, setList] = useState(itens);
   const [filteredList, setFilteredList] = useState<Item[]>([]);
@@ -16,21 +17,27 @@ function App() {
   useEffect(() => {
     setFilteredList(filterListByMonth(list, currentMonth));
   }, [list, currentMonth]);
+
+  const handleMonthChange = (newMonth: string) => {
+    setCurrentMonth(newMonth);
+  }
   
   return (
-    <c.Container>
-      <c.Header>
+    <C.Container>
+      <C.Header>
 
-        <c.HeaderText>Sistema de Gestão Financeira</c.HeaderText>
+        <C.HeaderText>Sistema de Gestão Financeira</C.HeaderText>
 
-      </c.Header>
+      </C.Header>
 
-      <c.Body>
+      <C.Body>
+
+        <InfoArea onMonthChange={handleMonthChange} currentMonth={currentMonth}></InfoArea>
 
         <TableArea list={filteredList} />
 
-      </c.Body>
-    </c.Container>
+      </C.Body>
+    </C.Container>
   );
 }
 
