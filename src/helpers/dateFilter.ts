@@ -23,7 +23,7 @@ export const filterListByMonth = (list: Item[], data: string): Item[] => {
 
 export const formatDate = (data: Date): string => {
     let day = data.getDay();
-    let month = data.getMonth();
+    let month = data.getMonth() + 1;
     let year = data.getFullYear();
 
     return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;

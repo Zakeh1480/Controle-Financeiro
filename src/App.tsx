@@ -7,6 +7,7 @@ import { itens } from './data/itens';
 import { getCurrentMonth, filterListByMonth } from './helpers/dateFilter';
 import { TableArea } from './components/TableArea';
 import { InfoArea } from './components/InfoArea';
+import { InputArea } from './components/InputArea';
 
 const App = () => {
 
@@ -24,21 +25,27 @@ const App = () => {
     let incomeCount = 0;
     let expenseCount = 0;
 
-    for (let i = 0; i < filteredList.length; i++){
-      if (categorias[filteredList[i].categoria].despesa){
+    for (let i = 0; i < filteredList.length; i++) {
+      if (categorias[filteredList[i].categoria].despesa) {
         expenseCount += filteredList[i].valor;
       } else {
         incomeCount += filteredList[i].valor;
       }
     }
 
-    setExpense(expenseCount); 
+    setExpense(expenseCount);
     setIncome(incomeCount);
 
   }, [filteredList])
 
   const handleMonthChange = (newMonth: string) => {
     setCurrentMonth(newMonth);
+  }
+
+  const handleAddItem = (item: Item) => {
+    let newList = [...list];
+    newList.push(item);
+    setList(newList);
   }
 
   return (
@@ -57,6 +64,7 @@ const App = () => {
           income={income}
           expense={expense} />
 
+        <InputArea onAdd={handleAddItem} />
 
         <TableArea list={filteredList} />
 
